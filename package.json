@@ -1,47 +1,199 @@
 {
   "name": "compression",
-  "description": "Node.js compression middleware",
-  "version": "1.7.4",
+  "description": "Koa compression middleware",
+  "version": "1.0.0",
   "contributors": [
-    "Douglas Christopher Wilson <doug@somethingdoug.com>",
-    "Jonathan Ong <me@jongleberry.com> (http://jongleberry.com)"
+    "Antonio Bourassa <abourassa@assetval.com>"
   ],
   "license": "MIT",
   "repository": "expressjs/compression",
   "dependencies": {
     "accepts": "~1.3.5",
-    "bytes": "3.0.0",
-    "compressible": "~2.0.16",
-    "debug": "2.6.9",
+    "debug": "^4.1.1",
     "on-headers": "~1.0.2",
-    "safe-buffer": "5.1.2",
+    "safe-buffer": "^5.2.0",
     "vary": "~1.1.2"
   },
   "devDependencies": {
+    "@getify/eslint-plugin-proper-ternary": "^3.0.1",
     "after": "0.8.2",
-    "eslint": "5.15.1",
-    "eslint-config-standard": "12.0.0",
-    "eslint-plugin-import": "2.16.0",
+    "eslint": "^6.5.1",
+    "eslint-config-airbnb-base": "14.0.0",
+    "eslint-import-resolver-node": "0.3.2",
+    "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-markdown": "1.0.0",
-    "eslint-plugin-node": "7.0.1",
-    "eslint-plugin-promise": "4.0.1",
-    "eslint-plugin-standard": "4.0.0",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-security": "^1.4.0",
+    "eslint-plugin-promise": "^4.2.1",
     "istanbul": "0.4.5",
-    "mocha": "6.0.2",
-    "supertest": "4.0.0"
+    "mocha": "^6.2.1",
+    "supertest": "^4.0.2"
   },
-  "files": [
-    "LICENSE",
-    "HISTORY.md",
-    "index.js"
-  ],
   "engines": {
-    "node": ">= 0.8.0"
+    "node": "10.16.3",
+    "npm": "6.11.2"
   },
   "scripts": {
     "lint": "eslint --plugin markdown --ext js,md .",
     "test": "mocha --check-leaks --reporter spec --bail",
     "test-cov": "istanbul cover node_modules/mocha/bin/_mocha -- --check-leaks --reporter dot",
     "test-travis": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --check-leaks --reporter spec"
-  }
+  },
+  "eslintConfig": {
+    "plugins": [
+      "node",
+      "security",
+      "@getify/proper-ternary"
+    ],
+    "extends": [
+      "airbnb-base",
+      "plugin:node/recommended",
+      "plugin:security/recommended",
+      "plugin:import/errors",
+      "plugin:import/warnings",
+      "plugin:@getify/proper-ternary/getify-says"
+    ],
+    "env": {
+      "shared-node-browser": true,
+      "node": true,
+      "es6": true
+    },
+    "rules": {
+      "arrow-parens": [
+        "error",
+        "as-needed",
+        {
+          "requireForBlockBody": true
+        }
+      ],
+      "no-unused-vars": "off",
+      "one-var": [
+        "error",
+        {
+          "var": "consecutive",
+          "let": "consecutive",
+          "const": "never"
+        }
+      ],
+      "one-var-declaration-per-line": "off",
+      "consistent-return": "off",
+      "func-names": "off",
+      "max-len": "off",
+      "no-unused-expressions": "off",
+      "no-console": "off",
+      "no-shadow": [
+        "error",
+        {
+          "hoist": "never",
+          "allow": [
+            "done",
+            "resolve",
+            "err",
+            "error",
+            "cb",
+            "User",
+            "user",
+            "issue"
+          ]
+        }
+      ],
+      "no-param-reassign": "off",
+      "no-prototype-builtins": "off",
+      "newline-per-chained-call": "off",
+      "no-lonely-if": "error",
+      "no-new-object": "error",
+      "object-curly-newline": [
+        "error",
+        {
+          "multiline": true,
+          "consistent": true
+        }
+      ],
+      "no-underscore-dangle": "off",
+      "object-curly-spacing": [
+        "error",
+        "never"
+      ],
+      "object-shorthand": [
+        "error",
+        "consistent"
+      ],
+      "prefer-destructuring": "off",
+      "space-before-blocks": "off",
+      "space-before-function-paren": [
+        "error",
+        "never"
+      ],
+      "prefer-rest-params": "off",
+      "import/newline-after-import": "off"
+    }
+  },
+  "stylelint": {
+    "extends": "stylelint-config-standard",
+    "plugins": [
+      "stylelint-scss"
+    ],
+    "rules": {
+      "font-family-no-missing-generic-family-keyword": false,
+      "max-empty-lines": 2,
+      "unit-whitelist": [
+        "px",
+        "em",
+        "rem",
+        "%",
+        "s",
+        "deg",
+        "vh",
+        "vw",
+        "ms"
+      ],
+      "media-feature-name-no-unknown": [
+        true,
+        {
+          "ignoreMediaFeatureNames": [
+            "/^prefers-/",
+            "custom"
+          ]
+        }
+      ],
+      "selector-list-comma-newline-after": "never-multi-line",
+      "comment-empty-line-before": "never",
+      "declaration-block-no-duplicate-properties": [
+        true,
+        {
+          "ignore": [
+            "consecutive-duplicates"
+          ]
+        }
+      ],
+      "number-leading-zero": "never",
+      "no-descending-specificity": null,
+      "rule-empty-line-before": [
+        "always",
+        {
+          "except": [
+            "after-single-line-comment",
+            "inside-block-and-after-rule",
+            "inside-block",
+            "first-nested"
+          ]
+        }
+      ]
+    }
+  },
+  "nodemonConfig": {
+    "events": {
+      "start": "cls || clear"
+    },
+    "ignore": [
+      "log/"
+    ]
+  },
+  "browserslist": [
+    "last 2 version",
+    "> 1%",
+    "not ie <= 8",
+    "not dead"
+  ],
+  "snyk": true
 }
